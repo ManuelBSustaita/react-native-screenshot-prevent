@@ -136,9 +136,8 @@ CGSize CGSizeAspectFill(const CGSize aspectRatio, const CGSize minimumSize)
 
     if (imagePath && ![imagePath isEqualToString:@""]) {
         UIView * imgView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, rootView.frame.size.width, rootView.frame.size.height)];
-        NSURL *url = [NSURL URLWithString:imagePath];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [[UIImage alloc] initWithData:data];
+      UIImage *img = [UIImage imageNamed:imagePath];
+
         
         CGSize sizeBeingScaledTo = CGSizeAspectFill(img.size, imgView.frame.size);
         
@@ -183,7 +182,6 @@ RCT_EXPORT_METHOD(enabled:(BOOL) _enable) {
 
 /** adds secure textfield view */
 RCT_EXPORT_METHOD(enableSecureView: (NSString *)imagePath) {
-    [self enabled:YES];
     if(secureField.secureTextEntry == false) {
         UIView *view = [UIApplication sharedApplication].keyWindow.rootViewController.view;
         for(UIView *subview in view.subviews) {
@@ -194,7 +192,6 @@ RCT_EXPORT_METHOD(enableSecureView: (NSString *)imagePath) {
 
 /** removes secure textfield from the view */
 RCT_EXPORT_METHOD(disableSecureView) {
-    [self enabled:NO];
     secureField.secureTextEntry = false;
     UIView *view = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     for(UIView *subview in view.subviews) {
